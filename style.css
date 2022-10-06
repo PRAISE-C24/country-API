@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: hsl(0, 0%, 100%);
+  line-height: 1.7;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+/* header style */
+header,
+.modal__header {
+  background: hsl(209, 23%, 22%);
+}
+nav,
+.modal__nav {
+  width: 85%;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.header__title {
+  margin-right: auto;
+}
+
+/* main style */
+main,
+.modal__main {
+  background: hsl(207, 26%, 17%);
+  min-height: 100vh;
+}
+
+.main__sections {
+  width: 85%;
+  margin: auto;
+}
+
+/* search section */
+.search-section {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* search input  */
+form {
+  width: 400px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  background: hsl(209, 23%, 22%);
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+.form__input {
+  width: 75%;
+  height: 75%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: inherit;
+}
+
+/* filter section */
+.filter {
+  width: 200px;
+}
+.filter__title {
+  background: hsl(209, 23%, 22%);
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding-left: 20px;
+}
+.filter-btn {
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+/* filter list */
+ul {
+  list-style: none;
+}
+.filter__list {
+  width: 100%;
+  padding: 20px;
+  background: hsl(209, 23%, 22%);
+  border-radius: 5px;
+  margin: 5px auto;
+}
+.filter-item {
+  cursor: pointer;
+}
+
+.content-container {
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 3rem;
+}
+.content {
+  width: 280px;
+  height: 350px;
+  border-radius: 8px;
+  background: hsl(209, 23%, 22%);
+}
+.country-flag {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+.country-details {
+  padding: 1rem;
+  text-transform: capitalize;
+}
+.country-name {
+  margin-bottom: 10px;
+}
+/* Detail page */
+
+.modal__main {
+  display: flex;
+  align-items: center;
+}
+
+.detail-section {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.detail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.detail-img {
+  width: 95%;
+  height: 220px;
+  object-fit: cover;
+}
+.detail-text {
+  padding: 30px 0;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.detail-btn {
+  padding-top: 50px;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.btn {
+  background: hsl(209, 23%, 22%);
+  padding: 5px 20px;
+  border-radius: 3px;
+  border: none;
+}
+.last-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-top: 1rem;
+}
+.last-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item {
+  background: hsl(209, 23%, 22%);
+  padding: 0px 12px;
+  margin: 3px;
+  border-radius: 3px;
+}
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+  z-index: 10;
+  transition: all 0.4s ease-out;
+  transform: translateX(-100%);
+}
+/* footer style */
+footer,
+.modal__footer {
+  text-align: center;
+  background: hsl(209, 23%, 22%);
+}
+@media screen and (min-width: 768px) {
+  .content-container {
+    gap: 5.2rem;
+  }
+  .detail-img {
+    width: 450px;
+    height: 300px;
+    object-fit: cover;
+    align-self: flex-start;
+    margin-left: 20px;
+  }
+  .detail-list {
+    flex-direction: row;
+    gap: 8rem;
+    margin-bottom: auto;
+  }
+  .detail-btn {
+    padding-top: 0;
+  }
+}
+@media screen and (min-width: 920px) {
+  .content {
+    width: 230px;
+    height: 300px;
+  }
+  .detail {
+    flex-direction: row;
+    gap: 4rem;
+  }
+  .detail-img {
+    align-self: center;
+    margin-left: 0px;
+  }
+  .detail-text {
+    padding: 0;
+    row-gap: 1rem;
+  }
+  .detail-list {
+    gap: 4rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .content-container {
+    gap: 3.2rem;
+  }
+  .detail {
+    gap: 8rem;
+  }
+}
+
+@media screen and (min-width: 1360px) {
+  .content-container {
+    gap: 4.6rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .content-container {
+    gap: 6rem;
+  }
+}
