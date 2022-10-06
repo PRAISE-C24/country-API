@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Front-End Mentor | Country-API</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header section -->
+    <header>
+      <nav>
+        <h3 class="header__title">Where in the world?</h3>
+        <i class="fa-sharp fa-solid fa-sun fa-2x"></i>
+        <i class="fa-sharp fa-solid fa-moon fa-2x"></i>
+        <span>Dark Mode</span>
+      </nav>
+    </header>
+
+    <!-- Main section -->
+    <main>
+      <!-- search section -->
+      <section class="main__sections">
+        <div class="search-section">
+          <!-- form input -->
+          <form>
+            <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+            <label for="search"></label>
+            <input
+              id="search"
+              class="form__input"
+              type="text"
+              placeholder="Search for a country..."
+              value=""
+            />
+          </form>
+
+          <!-- filter section -->
+          <div class="filter">
+            <div class="filter__title">
+              <span> Filter by Region </span>
+              <i class="fa-sharp fa-solid fa-angle-down filter-btn"></i>
+            </div>
+
+            <!-- filter list -->
+            <ul class="filter__list">
+              <li class="filter-item" id="Africa">Africa</li>
+              <li class="filter-item" id="America">America</li>
+              <li class="filter-item" id="Asia">Asia</li>
+              <li class="filter-item" id="Europe">Europe</li>
+              <li class="filter-item" id="Oceania">Oceania</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!--content section -->
+      <section class="main__sections">
+        <div class="content-container"></div>
+      </section>
+
+      <!-- modal  and content details -->
+      <section class="modal">
+        <div class="modal__header">
+          <div class="modal__nav">
+            <h3 class="header__title">Where in the world?</h3>
+            <i class="fa-sharp fa-solid fa-sun fa-2x"></i>
+            <i class="fa-sharp fa-solid fa-moon fa-2x"></i>
+            <span>Dark Mode</span>
+          </div>
+        </div>
+
+        <div class="modal__main">
+          <section class="detail-section">
+            <div class="detail-btn">
+              <button class="btn">
+                <i class="fa-sharp fa-solid fa-arrow-left"></i> Back
+              </button>
+            </div>
+
+            <div class="detail">
+              <img class="detail-img flag" src="./images/belgium.jpg" alt="" />
+              <div class="detail-text">
+                <h2 class="name">Belgium</h2>
+                <div class="detail-list">
+                  <ul>
+                    <li class="native-name">
+                      <strong>Native Name: </strong>Belgie
+                    </li>
+                    <li class="population">
+                      <strong>Population: </strong>11,319,511
+                    </li>
+                    <li class="region"><strong>Region: </strong>Europe</li>
+                    <li class="sub-region">
+                      <strong>Sub region: </strong>Western Europe
+                    </li>
+                    <li class="capital"><strong>Capital: </strong>Brussels</li>
+                  </ul>
+                  <ul>
+                    <li class="top-domain">
+                      <strong>Top Level Domain: </strong>.be
+                    </li>
+                    <li class="currencies">
+                      <strong>Currencies: </strong>Euro
+                    </li>
+                    <li class="language">
+                      <strong>Language: </strong>Dutch,French,German
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="last-detail">
+                  <strong> Border Countries:</strong>
+                  <ul class="last-list">
+                    <li class="item">France</li>
+                    <li class="item">Germany</li>
+                    <li class="item">Netherlands</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal__footer">
+          Challenge by
+          <a
+            href="https://www.frontendmentor.io?ref=challenge"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Frontend Mentor
+          </a>
+          . Coded by <a href="#">Chibuzor</a>.
+        </div>
+      </section>
+    </main>
+
+    <!--Footer section -->
+    <footer>
+      Challenge by
+      <a
+        href="https://www.frontendmentor.io?ref=challenge"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Frontend Mentor
+      </a>
+      . Coded by <a href="#">Chibuzor</a>.
+    </footer>
+    <script src="./main.js"></script>
+  </body>
+</html>
