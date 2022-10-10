@@ -1,107 +1,48 @@
 const contentContainer = document.querySelector(".content-container");
+const header = document.querySelector("header");
 const regions = document.querySelectorAll(".filter-item");
 const input = document.querySelector(".form__input");
+const filterBtn = document.querySelector(".filter-btn");
+const filterList = document.querySelector(".filter__list");
 const btn = document.querySelector(".btn");
 const modal = document.querySelector(".modal");
 
-const objects = [
-  {
-    id: "Belgium",
-    flag: "./images/belgium.JPG",
-    name: "Belgium",
-    population: "80,000,000",
-    region: "Europe",
-    capital: "Berlin",
-  },
-  {
-    id: "Italy",
-    flag: "./images/italy.png",
-    name: "Italy",
-    population: "80,000,000",
-    region: "Europe",
-    capital: "Berlin",
-  },
-  {
-    id: "South-Africa",
-    flag: "./images/south-africa.png",
-    name: "South-Africa",
-    population: "80,000,000",
-    region: "Africa",
-    capital: "Berlin",
-  },
-  {
-    id: "Nigeria",
-    flag: "./images/nigeria.png",
-    name: "Nigeria",
-    population: "80,000,000",
-    region: "Africa",
-    capital: "Berlin",
-  },
-  {
-    id: "Canada",
-    flag: "./images/canada.png",
-    name: "Canada",
-    population: "80,000,000",
-    region: "America",
-    capital: "Berlin",
-  },
-  {
-    id: "Brazil",
-    flag: "./images/brazil.jpg",
-    name: "Brazil",
-    population: "80,000,000",
-    region: "America",
-    capital: "Berlin",
-  },
-  {
-    id: "China",
-    flag: "./images/china.png",
-    name: "China",
-    population: "80,000,000",
-    region: "Asia",
-    capital: "Berlin",
-  },
-  {
-    id: "Japan",
-    flag: "./images/japan.png",
-    name: "Japan",
-    population: "80,000,000",
-    region: "Asia",
-    capital: "Berlin",
-  },
-  {
-    id: "Austria",
-    flag: "./images/austria.png",
-    name: "Austria",
-    population: "80,000,000",
-    region: "Oceania",
-    capital: "Berlin",
-  },
-  {
-    id: "Finland",
-    flag: "./images/finland.png",
-    name: "Finland",
-    population: "80,000,000",
-    region: "Oceania",
-    capital: "Berlin",
-  },
-];
+function getData() {
+  fetch("https://restcountries.com/v2/all")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      createContent(data);
+      objects = data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+getData();
 
-function setContent(item) {
+//mode and current state
+let mode = "light";
+let currentData = "";
+let currentDetail = "";
+
+//creating and rending contents to the DOM
+function setContent(data) {
   //country statistic list
   let population = document.createElement("li");
-  population.textContent = `population: ${item.population}`;
+  population.innerHTML = `<strong>population: </strong>${data.population}`;
 
   let region = document.createElement("li");
-  region.textContent = `region: ${item.region}`;
+  region.innerHTML = `<strong>region: </strong>${data.region}`;
 
   let capital = document.createElement("li");
-  capital.textContent = `capital: ${item.capital}`;
+  capital.innerHTML = `<strong>capital: </strong>${data.capital}`;
 
   //country name
   let countryName = document.createElement("h4");
   countryName.classList.add("country-name");
-  countryName.textContent = item.name;
+  countryName.textContent = data.name;
 
   //country statistic list container
   let countryStat = document.createElement("ul");
@@ -119,8 +60,8 @@ function setContent(item) {
   //content image
   let countryFlag = document.createElement("img");
   countryFlag.classList.add("country-flag");
-  countryFlag.setAttribute("src", `${item.flag}`);
-  countryFlag.setAttribute("id", `${item.id}`);
+  countryFlag.setAttribute("src", `${data.flag}`);
+  countryFlag.setAttribute("id", `${data.name}`);
 
   //content container
   let content = document.createElement("div");
@@ -129,21 +70,69 @@ function setContent(item) {
   content.append(countryFlag);
   content.append(countryDetails);
 
+  //appending content to the DOM
   contentContainer.append(content);
+
+  //switching bg base on mode
+  switchBg1(content);
 }
 
+function setError() {
+  //error message
+  const errorMsg = document.createElement("h2");
+  errorMsg.textContent = "sorry! no result found.";
+
+  //appending error message on it's container
+  const errorContent = document.createElement("div");
+  errorContent.classList.add("error");
+  errorContent.append(errorMsg);
+
+  //appending errorContent to the DOM
+  contentContainer.append(errorContent);
+}
+
+//clearing the prevously rendered contents fronm the DOM
 function clearContent() {
   contentContainer.innerHTML = "";
 }
 
-function createContent(contents) {
+//setting conditions necessary for contents to be created and rendererd
+function createContent(datas) {
+  //clearing the previously rendered contents
   clearContent();
-  contents.map((content) => {
-    setContent(content);
+
+  if (datas.length) {
+    //maping and setting new contents
+    datas.map((data) => {
+      setContent(data);
+    });
+  } else {
+    setError();
+  }
+
+  //Adding and listening for click event on every instance of content created
+  document.querySelectorAll(".country-flag").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      let id = e.target.id;
+
+      //toggle detail page to open
+      modal.style.transform = `translateX(${0}%)`;
+
+      //setting details
+      objects.map((item) => {
+        if (item.name === id) {
+          setDetails(item);
+          currentDetail = item;
+        }
+      });
+
+      //positionig the header on the details page
+      header.classList.add("header");
+    });
   });
 }
-createContent(objects);
 
+//filtering data base on user search input
 input.addEventListener("input", (e) => {
   search = e.target.value.toLowerCase();
 
@@ -152,53 +141,168 @@ input.addEventListener("input", (e) => {
   );
 
   createContent(searchResult);
+  currentData = searchResult;
 });
 
+//filtering data according user choosen region
 regions.forEach((item) => {
+  if (mode === "dark") {
+    item.classList.toggle("dark--hover");
+  }
   item.addEventListener("click", (e) => {
     let region = e.target.id;
-    filtered = objects.filter((item) => item.region === region);
+    let filtered;
+
+    if (region === "All") {
+      filtered = objects;
+    } else {
+      filtered = objects.filter((item) => item.region === region);
+    }
+
     createContent(filtered);
+    currentData = filtered;
   });
 });
 
-document.querySelectorAll(".country-flag").forEach((item) => {
-  item.addEventListener("click", (e) => {
-    let id = e.target.id;
-    modal.style.transform = `translateX(${0}%)`;
-    objects.map((item) => {
-      if (item.id === id) {
-        setDetails(item);
-      }
-    });
-  });
+//positioning the filter icon
+filterBtn.addEventListener("click", () => {
+  filterList.classList.toggle("filter--active");
+  if (!filterList.classList.contains("filter--active")) {
+    filterBtn.style.transform = `rotateX(${180}deg)`;
+  } else {
+    filterBtn.style.transform = `rotateX(${0}deg)`;
+  }
 });
 
 // Details page
-const flag = document.querySelector(".flag");
-const names = document.querySelector(".name");
-const nativeName = document.querySelector(".native-name");
-const population = document.querySelector(".population");
-const region = document.querySelector(".region");
-const subRegion = document.querySelector(".sub-region");
-const capital = document.querySelector(".capital");
-const topDomain = document.querySelector(".top-domain");
-const currencies = document.querySelector(".currencies");
-const language = document.querySelector(".language");
 
+// getting all the elements on details page
+//and setting the contents of the details page
 function setDetails(detail) {
-  flag.setAttribute("src", `${detail.Flag}`);
-  names.textContent = detail.name;
-  nativeName.textContent = detail.nativeName;
-  population.textContent = detail.population;
-  region.textContent = detail.region;
-  subRegion.textContent = detail.subRegion;
-  capital.textContent = detail.capital;
-  topDomain.textContent = detail.topDomain;
-  currencies.textContent = detail.currencies;
-  language.textContent = detail.language;
+  document.querySelector(".flag").setAttribute("src", `${detail.flag}`);
+
+  document.querySelector(".name").textContent = detail.name;
+
+  document.querySelector(".native-name").textContent = detail.nativeName;
+
+  document.querySelector(".population").textContent = detail.population;
+
+  document.querySelector(".region").textContent = detail.region;
+
+  document.querySelector(".sub-region").textContent = detail.subregion;
+
+  document.querySelector(".capital").textContent = detail.capital;
+
+  document.querySelector(".top-domain").textContent = detail.topLevelDomain;
+
+  document.querySelector(".currencies").textContent = detail.currencies.map(
+    (item) => item.name
+  );
+  document.querySelector(".language").textContent = detail.languages.map(
+    (item) => item.name
+  );
+
+  //clearing previously rendered border content
+  //and setting new border content of the details page
+  const borders = document.querySelector(".last-list");
+
+  if (detail.borders) {
+    borders.innerHTML = "";
+    detail.borders.map((item) => {
+      setBorder(item);
+      return item;
+    });
+  } else {
+    borders.innerHTML = "";
+    setBorder("Borders Not Found");
+  }
+
+  function setBorder(name) {
+    let item = document.createElement("li");
+    item.classList.add("item");
+    item.textContent = name;
+    borders.append(item);
+    switchBg1(item);
+  }
+
+  //switching modes on the details page and button
+  switchBg2(modal);
+  switchBg1(btn);
 }
 
+//toggling the details page to close
 btn.addEventListener("click", () => {
   modal.style.transform = `translateX(${-100}%)`;
+
+  //setting header back to normal
+  header.classList.remove("header");
 });
+
+//getting mode icons for mode switch
+const darkIcon = document.querySelector(".dark-icon");
+const lightIcon = document.querySelector(".light-icon");
+
+//toggle btw dark mode and light mode onClick
+darkIcon.addEventListener("click", () => {
+  mode = "dark";
+  switchMode();
+});
+lightIcon.addEventListener("click", () => {
+  mode = "light";
+  switchMode();
+});
+
+//getting and toggling DOM elements to effect mode switch
+function switchMode() {
+  //swiching mode icons to active
+  darkIcon.classList.toggle("active-mode");
+
+  lightIcon.classList.toggle("active-mode");
+
+  //switching Mode Text
+  const modeText = document.querySelector(".mode-text");
+  mode === "dark"
+    ? (modeText.textContent = "Light mode")
+    : (modeText.textContent = "Dark mode");
+
+  //switching hover state on filter background color
+  regions.forEach((item) => {
+    mode === "dark"
+      ? item.classList.add("dark--hover")
+      : item.classList.remove("dark--hover");
+  });
+  //switching background colors
+  switchBg1(header);
+
+  switchBg2(document.querySelector("main"));
+
+  switchBg1(document.querySelector("footer"));
+
+  switchBg1(document.querySelector("form"));
+
+  switchBg1(document.querySelector(".filter__title"));
+
+  switchBg1(filterList);
+
+  //setting the content and detail page to it's current state
+  currentData !== "" ? createContent(currentData) : createContent(objects);
+  currentDetail !== "" ? setDetails(currentDetail) : null;
+}
+
+//first shade ot dark background color
+function switchBg1(name) {
+  if (mode === "dark") {
+    name.classList.add("dark--bg1");
+  } else {
+    name.classList.remove("dark--bg1");
+  }
+}
+
+//second shade of dark background color
+function switchBg2(name) {
+  if (mode === "dark") {
+    name.classList.add("dark--bg2");
+  } else {
+    name.classList.remove("dark--bg2");
+  }
+}
