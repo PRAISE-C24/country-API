@@ -16,22 +16,22 @@
   </head>
   <body>
     <!-- Header section -->
-    <header>
+    <header class="light--bg1">
       <nav>
         <h3 class="header__title">Where in the world?</h3>
-        <i class="fa-sharp fa-solid fa-sun fa-2x"></i>
-        <i class="fa-sharp fa-solid fa-moon fa-2x"></i>
-        <span>Dark Mode</span>
+        <i class="fa-sharp fa-solid fa-sun light-icon"></i>
+        <i class="fa-sharp fa-solid fa-moon fa-2x dark-icon active-mode"></i>
+        <strong class="mode-text">Dark Mode</strong>
       </nav>
     </header>
 
     <!-- Main section -->
-    <main>
+    <main class="light--bg2">
       <!-- search section -->
       <section class="main__sections">
         <div class="search-section">
           <!-- form input -->
-          <form>
+          <form class="light--bg1">
             <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
             <label for="search"></label>
             <input
@@ -45,15 +45,16 @@
 
           <!-- filter section -->
           <div class="filter">
-            <div class="filter__title">
+            <div class="filter__title light--bg1">
               <span> Filter by Region </span>
               <i class="fa-sharp fa-solid fa-angle-down filter-btn"></i>
             </div>
 
             <!-- filter list -->
-            <ul class="filter__list">
+            <ul class="filter__list filter--active light--bg1">
+              <li class="filter-item" id="All">All Region</li>
               <li class="filter-item" id="Africa">Africa</li>
-              <li class="filter-item" id="America">America</li>
+              <li class="filter-item" id="Americas">America</li>
               <li class="filter-item" id="Asia">Asia</li>
               <li class="filter-item" id="Europe">Europe</li>
               <li class="filter-item" id="Oceania">Oceania</li>
@@ -68,20 +69,11 @@
       </section>
 
       <!-- modal  and content details -->
-      <section class="modal">
-        <div class="modal__header">
-          <div class="modal__nav">
-            <h3 class="header__title">Where in the world?</h3>
-            <i class="fa-sharp fa-solid fa-sun fa-2x"></i>
-            <i class="fa-sharp fa-solid fa-moon fa-2x"></i>
-            <span>Dark Mode</span>
-          </div>
-        </div>
-
-        <div class="modal__main">
+      <section>
+        <div class="modal light--bg2">
           <section class="detail-section">
             <div class="detail-btn">
-              <button class="btn">
+              <button class="btn light--bg1">
                 <i class="fa-sharp fa-solid fa-arrow-left"></i> Back
               </button>
             </div>
@@ -92,60 +84,56 @@
                 <h2 class="name">Belgium</h2>
                 <div class="detail-list">
                   <ul>
-                    <li class="native-name">
-                      <strong>Native Name: </strong>Belgie
+                    <li>
+                      <strong>Native Name: </strong
+                      ><span class="native-name">Belgie</span>
                     </li>
-                    <li class="population">
-                      <strong>Population: </strong>11,319,511
+                    <li>
+                      <strong>Population: </strong
+                      ><span class="population">11,319,511</span>
                     </li>
-                    <li class="region"><strong>Region: </strong>Europe</li>
-                    <li class="sub-region">
-                      <strong>Sub region: </strong>Western Europe
+                    <li>
+                      <strong>Region: </strong
+                      ><span class="region">Europe</span>
                     </li>
-                    <li class="capital"><strong>Capital: </strong>Brussels</li>
+                    <li>
+                      <strong>Sub region: </strong
+                      ><span class="sub-region">Western Europe</span>
+                    </li>
+                    <li>
+                      <strong>Capital: </strong
+                      ><span class="capital">Brussels</span>
+                    </li>
                   </ul>
                   <ul>
-                    <li class="top-domain">
-                      <strong>Top Level Domain: </strong>.be
+                    <li>
+                      <strong>Top Level Domain: </strong
+                      ><span class="top-domain">.be</span>
                     </li>
-                    <li class="currencies">
-                      <strong>Currencies: </strong>Euro
+                    <li>
+                      <strong>Currencies: </strong
+                      ><span class="currencies">Euro</span>
                     </li>
-                    <li class="language">
-                      <strong>Language: </strong>Dutch,French,German
+                    <li>
+                      <strong>Language: </strong
+                      ><span class="language">Dutch,French,German</span>
                     </li>
                   </ul>
                 </div>
 
                 <div class="last-detail">
                   <strong> Border Countries:</strong>
-                  <ul class="last-list">
-                    <li class="item">France</li>
-                    <li class="item">Germany</li>
-                    <li class="item">Netherlands</li>
-                  </ul>
+                  <ul class="last-list"></ul>
                 </div>
               </div>
             </div>
           </section>
         </div>
-
-        <div class="modal__footer">
-          Challenge by
-          <a
-            href="https://www.frontendmentor.io?ref=challenge"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Frontend Mentor
-          </a>
-          . Coded by <a href="#">Chibuzor</a>.
-        </div>
       </section>
     </main>
 
     <!--Footer section -->
-    <footer>
+    <footer class="light--bg1">
       Challenge by
       <a
         href="https://www.frontendmentor.io?ref=challenge"
