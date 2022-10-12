@@ -23,9 +23,13 @@ function getData() {
 getData();
 
 //mode and current state
-let mode = "light";
-let currentData = "";
-let currentDetail = "";
+let mode;
+let currentData;
+let currentDetail;
+
+function getMode() {
+  mode = localStorage.getItem("mode");
+}
 
 //creating and rending contents to the DOM
 function setContent(data) {
@@ -42,7 +46,9 @@ function setContent(data) {
   //country name
   let countryName = document.createElement("h4");
   countryName.classList.add("country-name");
-  countryName.textContent = data.name;
+
+  countryName.textContent =
+    data.name.length > 30 ? `${data.name.slice(0, 21)}...` : data.name;
 
   //country statistic list container
   let countryStat = document.createElement("ul");
@@ -91,20 +97,20 @@ function setError() {
   contentContainer.append(errorContent);
 }
 
-//clearing the prevously rendered contents fronm the DOM
+//clearing the previously rendered contents from the DOM
 function clearContent() {
   contentContainer.innerHTML = "";
 }
 
-//setting conditions necessary for contents to be created and rendererd
-function createContent(datas) {
+//setting conditions necessary for contents to be created and rendered
+function createContent(data) {
   //clearing the previously rendered contents
   clearContent();
 
-  if (datas.length) {
-    //maping and setting new contents
-    datas.map((data) => {
-      setContent(data);
+  if (data.length) {
+    //mapping and setting new contents
+    data.map((item) => {
+      setContent(item);
     });
   } else {
     setError();
@@ -126,7 +132,7 @@ function createContent(datas) {
         }
       });
 
-      //positionig the header on the details page
+      //positioning the header on the details page
       header.classList.add("header");
     });
   });
@@ -144,7 +150,7 @@ input.addEventListener("input", (e) => {
   currentData = searchResult;
 });
 
-//filtering data according user choosen region
+//filtering data according user chosen region
 regions.forEach((item) => {
   if (mode === "dark") {
     item.classList.toggle("dark--hover");
@@ -244,20 +250,23 @@ const lightIcon = document.querySelector(".light-icon");
 
 //toggle btw dark mode and light mode onClick
 darkIcon.addEventListener("click", () => {
-  mode = "dark";
+  //mode = "dark";
+  localStorage.setItem("mode", "dark");
   switchMode();
+  setCurrent();
 });
 lightIcon.addEventListener("click", () => {
-  mode = "light";
+  //mode = "light";
+  localStorage.setItem("mode", "light");
   switchMode();
+  setCurrent();
 });
 
 //getting and toggling DOM elements to effect mode switch
 function switchMode() {
-  //swiching mode icons to active
-  darkIcon.classList.toggle("active-mode");
-
-  lightIcon.classList.toggle("active-mode");
+  getMode();
+  //switching mode icons to active
+  switchIcon();
 
   //switching Mode Text
   const modeText = document.querySelector(".mode-text");
@@ -283,26 +292,44 @@ function switchMode() {
   switchBg1(document.querySelector(".filter__title"));
 
   switchBg1(filterList);
-
-  //setting the content and detail page to it's current state
-  currentData !== "" ? createContent(currentData) : createContent(objects);
-  currentDetail !== "" ? setDetails(currentDetail) : null;
 }
 
-//first shade ot dark background color
-function switchBg1(name) {
+switchMode();
+
+//switch mode icons
+function switchIcon(icon) {
   if (mode === "dark") {
-    name.classList.add("dark--bg1");
+    lightIcon.classList.add("active-mode");
+
+    darkIcon.classList.remove("active-mode");
   } else {
-    name.classList.remove("dark--bg1");
+    darkIcon.classList.add("active-mode");
+
+    lightIcon.classList.remove("active-mode");
+  }
+}
+//first shade ot dark background color
+function switchBg1(tag) {
+  if (mode === "dark") {
+    tag.classList.add("dark--bg1");
+  } else {
+    tag.classList.remove("dark--bg1");
   }
 }
 
 //second shade of dark background color
-function switchBg2(name) {
+function switchBg2(tag) {
   if (mode === "dark") {
-    name.classList.add("dark--bg2");
+    tag.classList.add("dark--bg2");
   } else {
-    name.classList.remove("dark--bg2");
+    tag.classList.remove("dark--bg2");
   }
+}
+
+//setting state to current
+
+function setCurrent() {
+  //setting the content and detail page to it's current state
+  currentData ? createContent(currentData) : createContent(objects);
+  currentDetail ? setDetails(currentDetail) : null;
 }
