@@ -54,7 +54,6 @@ form {
   align-items: center;
   gap: 0.4rem;
   border-radius: 5px;
-  cursor: pointer;
   margin-bottom: 25px;
 }
 .form__input {
@@ -82,7 +81,6 @@ form {
   padding-left: 20px;
 }
 .filter-btn {
-  cursor: pointer;
   margin-right: 1rem;
 }
 
@@ -201,14 +199,12 @@ ul {
 .detail-btn {
   padding-top: 50px;
   align-self: flex-start;
-  cursor: pointer;
 }
 
 .btn {
   padding: 5px 20px;
   border-radius: 3px;
   border: none;
-  cursor: pointer;
 }
 .last-detail {
   display: flex;
@@ -227,6 +223,15 @@ ul {
   color: #333;
   background: hsl(0, 0%, 100%);
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+}
+
+.item:hover,
+.detail-btn,
+.filter-btn,
+form,
+.btn {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 /* footer style */
