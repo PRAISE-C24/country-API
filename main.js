@@ -2,6 +2,7 @@ const contentContainer = document.querySelector(".content-container");
 const header = document.querySelector("header");
 const regions = document.querySelectorAll(".filter-item");
 const input = document.querySelector(".form__input");
+const filterTitleText = document.querySelector(".filter__title-text");
 const filterBtn = document.querySelector(".filter-btn");
 const filterList = document.querySelector(".filter__list");
 const btn = document.querySelector(".btn");
@@ -157,9 +158,12 @@ regions.forEach((item) => {
   }
   item.addEventListener("click", (e) => {
     let region = e.target.id;
+
+    filterTitleText.textContent = region;
+
     let filtered;
 
-    if (region === "All") {
+    if (region === "All Region") {
       filtered = objects;
     } else {
       filtered = objects.filter((item) => item.region === region);
@@ -227,6 +231,14 @@ function setDetails(detail) {
     let item = document.createElement("li");
     item.classList.add("item");
     item.textContent = name;
+
+    item.addEventListener("click", (e) => {
+      let countryCode = e.target.textContent;
+      objects.filter((item) => {
+        item.alpha3Code === countryCode && setDetails(item);
+      });
+    });
+
     borders.append(item);
     switchBg1(item);
   }
